@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Father's Day Canvas Card</title>
+  <style>
+    body {
+      background: #e0f2ff;
+      text-align: center;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+    }
+    #canvas {
+      background: #fff;
+      border: 2px solid #3399cc;
+      margin: 30px auto;
+      display: block;
+      box-shadow: 0 4px 24px #0002;
+    }
+    h1 {
+      color: #2266bb;
+      margin-top: 28px;
+      font-size: 2.5em;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy Father's Day!</h1>
+  <canvas id="canvas" width="900" height="500"></canvas>
+  <script>
+    function drawHeart(ctx, x, y, size, color, fillColor) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(x, y + size / 4);
+      ctx.bezierCurveTo(
+        x, y,
+        x - size / 2, y,
+        x - size / 2, y + size / 4
+      );
+      ctx.bezierCurveTo(
+        x - size / 2, y + size / 2,
+        x, y + size * 0.85,
+        x, y + size
+      );
+      ctx.bezierCurveTo(
+        x, y + size * 0.85,
+        x + size / 2, y + size / 2,
+        x + size / 2, y + size / 4
+      );
+      ctx.bezierCurveTo(
+        x + size / 2, y,
+        x, y,
+        x, y + size / 4
+      );
+      ctx.closePath();
+      ctx.fillStyle = fillColor;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 4;
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawTie(ctx, x, y, size) {
+      // Draw tie knot
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x - size * 0.12, y + size * 0.10);
+      ctx.lineTo(x, y + size * 0.20);
+      ctx.lineTo(x + size * 0.12, y + size * 0.10);
+      ctx.closePath();
+      ctx.fillStyle = "#2266bb";
+      ctx.fill();
+      ctx.strokeStyle = "#1a4473";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Draw tie body
+      ctx.beginPath();
+      ctx.moveTo(x, y + size * 0.20);
+      ctx.lineTo(x - size * 0.09, y + size * 0.60);
+      ctx.lineTo(x, y + size * 0.90);
+      ctx.lineTo(x + size * 0.09, y + size * 0.60);
+      ctx.closePath();
+      ctx.fillStyle = "#3399cc";
+      ctx.fill();
+      ctx.strokeStyle = "#1a4473";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawText(ctx, text, x, y, size, color, align="center") {
+      ctx.save();
+      ctx.font = `bold ${size}px Segoe UI, Arial, sans-serif`;
+      ctx.fillStyle = color;
+      ctx.textAlign = align;
+      ctx.textBaseline = "middle";
+      ctx.fillText(text, x, y);
+      ctx.restore();
+    }
+
+    window.onload = function() {
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // Draw the big heart - moved higher (y = 40)
+      drawHeart(ctx, 450, 40, 300, "#2266bb", "#b3e0ff");
+
+      // Draw the tie inside the heart - adjusted accordingly
+      drawTie(ctx, 450, 120, 130);
+
+      // Draw greeting text
+      drawText(ctx, "Thank you, Dad!", 450, 370, 48, "#2266bb");
+      drawText(ctx, "You're the best! 👔", 450, 420, 36, "#3399cc");
+    };
+  </script>
+</body>
+</html>
